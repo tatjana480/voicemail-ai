@@ -1,7 +1,15 @@
 'use client'
 
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import { Mic, MicOff, Square } from 'lucide-react'
+
+// Extend Window interface for speech recognition
+declare global {
+  interface Window {
+    SpeechRecognition: any
+    webkitSpeechRecognition: any
+  }
+}
 
 interface VoiceRecorderProps {
   onTranscript: (transcript: string) => void
@@ -10,8 +18,15 @@ interface VoiceRecorderProps {
 
 export default function VoiceRecorder({ onTranscript, transcript }: VoiceRecorderProps) {
   const [isRecording, setIsRecording] = useState(false)
-  const [isSupported, setIsSupported] = useState(true)
-  const recognitionRef = useRef<SpeechRecognition | null>(null)
+  const [isSupported, setIsSupported] = useState(false)
+  const recognitionRef = useRef<any>(null)
+
+  useEffect(() => {
+    // Check if speech recognition is supported (only in browser)
+    if (typeof window !== 'undefined') {
+      setIsSupported('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)
+    }
+  }, [])
 
   const startRecording = () => {
     if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
