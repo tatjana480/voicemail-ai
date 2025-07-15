@@ -86,7 +86,7 @@ export default function EmailGenerator({
             className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
           >
             <option value="general">💬 General</option>
-            <option value="meeting">📅 Meeting Request</option>
+            <option value="meeting">📅 Meeting</option>
             <option value="follow-up">🔄 Follow-up</option>
             <option value="inquiry">❓ Inquiry</option>
             <option value="complaint">⚠️ Complaint</option>
