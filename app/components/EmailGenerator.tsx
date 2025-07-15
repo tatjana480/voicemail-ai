@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Wand2, Settings } from 'lucide-react'
+import { Wand2 } from 'lucide-react'
 
 interface EmailGeneratorProps {
   transcript: string
@@ -18,7 +18,6 @@ export default function EmailGenerator({
 }: EmailGeneratorProps) {
   const [tone, setTone] = useState('professional')
   const [emailType, setEmailType] = useState('general')
-  const [showSettings, setShowSettings] = useState(false)
 
   const generateEmail = async () => {
     if (!transcript.trim()) return
@@ -54,54 +53,47 @@ export default function EmailGenerator({
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
-      <div className="flex items-center justify-between mb-4">
+      <div className="mb-4">
         <h2 className="text-xl font-semibold">Email Generator</h2>
-        <button
-          onClick={() => setShowSettings(!showSettings)}
-          className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
-        >
-          <Settings size={20} />
-        </button>
+        <p className="text-sm text-gray-600 mt-1">Choose your tone and type for the perfect email</p>
       </div>
 
-      {showSettings && (
-        <div className="mb-6 p-4 bg-gray-50 rounded-lg space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Tone
-            </label>
-            <select
-              value={tone}
-              onChange={(e) => setTone(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="professional">Professional</option>
-              <option value="casual">Casual</option>
-              <option value="friendly">Friendly</option>
-              <option value="formal">Formal</option>
-              <option value="urgent">Urgent</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Email Type
-            </label>
-            <select
-              value={emailType}
-              onChange={(e) => setEmailType(e.target.value)}
-              className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-            >
-              <option value="general">General</option>
-              <option value="meeting">Meeting Request</option>
-              <option value="follow-up">Follow-up</option>
-              <option value="inquiry">Inquiry</option>
-              <option value="complaint">Complaint</option>
-              <option value="thank-you">Thank You</option>
-            </select>
-          </div>
+      <div className="mb-6 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            📝 Email Tone
+          </label>
+          <select
+            value={tone}
+            onChange={(e) => setTone(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+          >
+            <option value="professional">🏢 Professional</option>
+            <option value="casual">😊 Casual</option>
+            <option value="friendly">🤝 Friendly</option>
+            <option value="formal">🎩 Formal</option>
+            <option value="urgent">⚡ Urgent</option>
+          </select>
         </div>
-      )}
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-2">
+            📧 Email Type
+          </label>
+          <select
+            value={emailType}
+            onChange={(e) => setEmailType(e.target.value)}
+            className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
+          >
+            <option value="general">💬 General</option>
+            <option value="meeting">📅 Meeting Request</option>
+            <option value="follow-up">🔄 Follow-up</option>
+            <option value="inquiry">❓ Inquiry</option>
+            <option value="complaint">⚠️ Complaint</option>
+            <option value="thank-you">🙏 Thank You</option>
+          </select>
+        </div>
+      </div>
 
       <button
         onClick={generateEmail}
